@@ -1,5 +1,9 @@
 # expo-video: cached HLS can't play offline when ABR picks an uncached rendition (Android)
 
+- Issue: https://github.com/expo/expo/issues/50481
+- Fix PR: https://github.com/expo/expo/pull/50480
+- Branch `with-fix` applies the PR as a patch (`patches/expo-video+57.0.4.patch`).
+
 A minimal reproduction for expo-video on Android, built from a blank SDK 57 app with stock `expo-video`.
 
 ## The bug
@@ -31,6 +35,6 @@ The cache still holds the segments (the cache size shown on screen is unchanged)
 
 ## Fix
 
-Treat transport failures (`UnknownHostException`, `ConnectException`) as a track fallback when `useCaching` is on. See the linked PR in expo/expo.
+Treat transport failures (`UnknownHostException`, `ConnectException`) as a track fallback when `useCaching` is on. See https://github.com/expo/expo/pull/50480.
 
 Note for anyone patching this locally: SDK 57 ships expo-video **precompiled** on Android. A `patch-package` edit to its Kotlin does nothing unless `expo-video` is listed in `expo.autolinking.android.buildFromSource` in package.json, and the build succeeds either way, so nothing tells you the patch wasn't applied.
